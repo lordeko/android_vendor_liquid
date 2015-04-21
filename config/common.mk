@@ -15,7 +15,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.android.wifi-watchlist=GoogleGuest \
     ro.setupwizard.enterprise_mode=1 \
     ro.com.android.dateformat=MM-dd-yyyy \
-    ro.com.android.dataroaming=false
+    ro.com.android.dataroaming=false \
+    dalvik.vm.image-dex2oat-filter=everything \
+    dalvik.vm.dex2oat-filter=everything
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.selinux=1
@@ -39,31 +41,6 @@ PRODUCT_COPY_FILES += \
 # liquid-specific init file
 PRODUCT_COPY_FILES += \
     vendor/liquid/prebuilt/common/etc/init.local.rc:root/init.liquid.rc
-
-# Layers Theme
-PRODUCT_COPY_FILES += \
-    vendor/liquid/prebuilt/common/etc/Layers.apk:system/app/Layers/Layers.apk
-
-# Kernel Auditor
-PRODUCT_COPY_FILES += \
-    vendor/liquid/prebuilt/common/etc/Auditor.apk:system/app/Auditor/Auditor.apk
-
-# Synergy Theme apks
-PRODUCT_COPY_FILES += \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_teleservice_v4.apk:vendor/overlay/Synergy_teleservice_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_cellbroadcast_v4.apk:vendor/overlay/Synergy_cellbroadcast_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_contacts_v4.apk:vendor/overlay/Synergy_contacts_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_dialer_v4.apk:vendor/overlay/Synergy_dialer_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_framework-res_v4.apk:vendor/overlay/Synergy_framework-res_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_gmail_v4.apk:vendor/overlay/Synergy_gmail_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_googlemms_v4.apk:vendor/overlay/Synergy_googlemms_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_hangouts_v4.apk:vendor/overlay/Synergy_hangouts_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_inbox_v4.apk:vendor/overlay/Synergy_inbox_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_keyboard_v4.apk:vendor/overlay/Synergy_keyboard_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_playmusic_v4.apk:vendor/overlay/Synergy_playmusic_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_playstore_v4.apk:vendor/overlay/Synergy_playstore_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_settings_v4.apk:vendor/overlay/Synergy_settings_v4.apk \
-    vendor/liquid/prebuilt/common/etc/synergy/Synergy_systemui_v4.apk:vendor/overlay/Synergy_systemui_v4.apk
 
 # Copy latinime for gesture typing
 PRODUCT_COPY_FILES += \
@@ -92,11 +69,15 @@ PRODUCT_COPY_FILES += \
     vendor/liquid/prebuilt/common/etc/UPDATE-SuperSU.zip:system/addon.d/UPDATE-SuperSU.zip \
     vendor/liquid/prebuilt/common/etc/init.d/99SuperSUDaemon:system/etc/init.d/99SuperSUDaemon
 
+# T-Mobile theme engine
+include vendor/liquid/config/themes_common.mk
+
 # Required packages
 PRODUCT_PACKAGES += \
     CellBroadcastReceiver \
     Development \
-    SpareParts
+    SpareParts \
+    su
 
 # AudioFX
 PRODUCT_PACKAGES += \
@@ -113,7 +94,8 @@ PRODUCT_PACKAGES += \
     DeskClock \
     LiveWallpapersPicker \
     Terminal \
-    LockClock
+    LockClock \
+    KernelAdiutor
 
 # Extra tools
 PRODUCT_PACKAGES += \
@@ -180,7 +162,7 @@ endif
 # version
 RELEASE = false
 LIQUID_VERSION_MAJOR = 4
-LIQUID_VERSION_MINOR = 0
+LIQUID_VERSION_MINOR = 1
 
 # release
 ifeq ($(RELEASE),true)
