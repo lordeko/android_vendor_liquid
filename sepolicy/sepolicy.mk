@@ -13,6 +13,7 @@ BOARD_SEPOLICY_UNION += \
     property_contexts \
     seapp_contexts \
     service_contexts \
+	adbd.te \
     app.te \
     auditd.te \
     bootanim.te \
